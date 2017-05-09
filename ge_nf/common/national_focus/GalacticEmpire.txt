@@ -1,0 +1,1430 @@
+focus_tree = {
+	id = Galactic_focus
+	
+	country = {
+		factor = 0
+		
+		modifier = {
+			add = 10
+			tag = GAL
+		}
+		
+		modifier = {
+			add = 10
+			original_tag = GAL
+		}
+	}
+	
+	default = no
+	
+# Self explanatory...
+	focus = {
+		id = GAL_the_invasion
+		icon = GFX_goal_generic_territory_or_war
+		x = 4
+		y = 0
+		cost = 1
+
+		completion_reward = {
+			359 = {
+				add_extra_state_shared_building_slots = 2
+				add_building_construction = {
+					type = rocket_site
+					level = 2
+					instant_build = yes
+				}
+			}
+			add_tech_bonus = {
+				name = land_doc_bonus
+				bonus = 0.5
+				uses = 1
+				category = land_doctrine
+			}
+			add_tech_bonus = {
+				name = air_doc_bonus
+				bonus = 0.5
+				uses = 1
+				category = air_doctrine
+			}
+		}
+	}
+	
+# Begin adapting army for use on earth.
+	focus = {
+		id = GAL_army_effort
+		icon = GFX_goal_generic_build_tank
+		prerequisite = { focus = GAL_the_invasion }
+		x = 1
+		y = 1
+		cost = 10
+		completion_reward = {
+			army_experience = 10
+			add_tech_bonus = {
+				name = land_doc_bonus
+				bonus = 0.75
+				uses = 1
+				category = land_doctrine
+			}
+		}
+	}
+	
+# From learning how to fight humans (better tactics against humanity).
+	focus = {
+		id = GAL_terran_tactic_school
+		icon = GFX_goal_generic_small_arms
+		prerequisite = { focus = GAL_army_effort }
+		available = {
+			controls_state = 361
+		}
+		x = 2
+		y = 2
+		cost = 10
+		completion_reward = {
+			remove_ideas = GALtian_tactics
+			add_ideas = terran_tactics
+		}
+	}
+	
+# Bigger, better, Tripods.
+	focus = {
+		id = GAL_tripods
+		icon = GFX_goal_generic_army_tanks
+		prerequisite = { focus = GAL_terran_tactic_school }
+		x = 2
+		y = 5
+		cost = 10
+		completion_reward = {
+			army_experience = 40
+			if = {
+				limit = {
+					NOT = { has_tech = advanced_heavy_tank }
+				}
+				custom_effect_tooltip = GAL_advanced_heavy_tank_tt
+				hidden_effect = {
+					set_technology = { advanced_heavy_tank = 1 }
+					set_country_flag = army_tripod
+				}
+			}
+			if = {
+				limit = {
+					NOT = { has_country_flag = army_tripod }
+					NOT = { has_tech = main_battle_tank }
+					has_tech = advanced_heavy_tank
+				}
+				custom_effect_tooltip = GAL_main_battle_tank_tt
+				hidden_effect = {
+					set_technology = { main_battle_tank = 1 }
+				}
+				custom_effect_tooltip = GAL_contingency_tooltip
+				hidden_effect = { load_oob = GAL_contingency }
+			}
+		}
+	}
+	
+# Standard sort of doctrine focus.
+	focus = {
+		id = GAL_doctrine_effort
+		icon = GFX_goal_generic_army_doctrines
+		prerequisite = { focus = GAL_army_effort }
+		x = 0
+		y = 2
+		cost = 10
+		completion_reward = {
+			army_experience = 10
+			add_tech_bonus = {
+				name = land_doc_bonus
+				bonus = 0.75
+				uses = 1
+				category = land_doctrine
+			}
+		}
+	}
+	
+# Standard sort of second doctrine focus.
+	focus = {
+		id = GAL_doctrine_effort_2
+		icon = GFX_goal_generic_army_doctrines
+		prerequisite = { focus = GAL_doctrine_effort }
+		x = 0
+		y = 4
+		cost = 10
+		completion_reward = {
+			army_experience = 20
+			add_tech_bonus = {
+				name = land_doc_bonus
+				bonus = 0.75
+				uses = 2
+				category = land_doctrine
+			}
+		}
+	}
+	
+# Begin adapting airforce (small attack spacecraft) for use on earth.
+	focus = {
+		id = GAL_aviation_effort
+		icon = GFX_goal_generic_build_airforce
+		prerequisite = { focus = GAL_the_invasion }
+		x = 4
+		y = 1
+		cost = 10
+
+		completion_reward = {
+			air_experience = 25
+			359 = {
+				add_building_construction = {
+					type = air_base
+					level = 2
+					instant_build = yes
+				}
+			}
+			add_tech_bonus = {
+				name = air_doc_bonus
+				bonus = 0.75
+				uses = 1
+				category = air_doctrine
+			}
+		}
+	}
+	
+# Build more rocket pads for invasion effort.
+	focus = {
+		id = GAL_expand_rockets
+		icon = GFX_focus_build_rockets
+		prerequisite = { focus = GAL_aviation_effort }
+		available = {
+			controls_state = 127
+		}
+		x = 4
+		y = 2
+		cost = 5
+
+		completion_reward = {
+			127 = {
+				add_extra_state_shared_building_slots = 4
+				add_building_construction = {
+					type = rocket_site
+					level = 4
+					instant_build = yes
+				}
+			}
+		}
+	}
+	
+# Focus on adapting attack fighters.
+	focus = {
+		id = GAL_fighter_focus
+		icon = GFX_goal_generic_air_fighter
+		prerequisite = { focus = GAL_aviation_effort }
+		mutually_exclusive = { focus = GAL_bomber_focus }
+		x = 3
+		y = 3
+		cost = 10
+		completion_reward = {
+			add_ideas = fighter_focus_idea
+		}
+	}
+	
+# Focus on adapting attack bombers.
+	focus = {
+		id = GAL_bomber_focus
+		icon = GFX_goal_generic_air_bomber
+		prerequisite = { focus = GAL_aviation_effort }
+		mutually_exclusive = { focus = GAL_fighter_focus }
+		x = 5
+		y = 3
+		cost = 10
+		completion_reward = {
+			add_ideas = bomber_focus_idea
+		}
+	}
+	
+# Make it up (Jet Engines renamed to Hypersonic Engines).
+	focus = {
+		id = GAL_hypersonic
+		prerequisite = { focus = GAL_fighter_focus focus = GAL_bomber_focus }
+		icon = GFX_goal_generic_air_production
+		x = 4
+		y = 5
+		cost = 10
+		completion_reward = {
+			air_experience = 50
+			if = {
+				limit = {
+					NOT = { has_tech = jet_engines }
+				}
+				custom_effect_tooltip = GAL_jet_engines_tt
+				hidden_effect = {
+					set_technology = { jet_engines = 1 }
+					set_country_flag = hypersonic_engines
+				}
+			}
+			if = {
+				limit = {
+					NOT = { has_tech = jet_fighter1 }
+				}
+				custom_effect_tooltip = GAL_jet_fighter1_tt
+				hidden_effect = {
+					set_technology = { jet_fighter1 = 1 }
+				}
+			}
+			if = {
+				limit = {
+					NOT = { has_country_flag = hypersonic_engines }
+					has_tech = jet_engines
+					NOT = { has_tech = jet_fighter2 }
+				}
+				custom_effect_tooltip = GAL_jet_fighter2_tt
+				hidden_effect = {
+					set_technology = { jet_fighter2 = 1 }
+					set_country_flag = hypersonic_fighter
+				}
+			}
+			if = {
+				limit = {
+					NOT = { has_country_flag = hypersonic_fighter }
+					has_tech = jet_engines
+					has_tech = jet_fighter2
+					NOT = { has_tech = jet_strategic_bomber1 }
+				}
+				custom_effect_tooltip = GAL_jet_strat_bomber1_tt
+				hidden_effect = {
+					set_technology = { jet_strategic_bomber1 = 1 }
+				}
+			}
+		}
+	}
+	
+# Begin converting space born navy for use in earch oceans (highly costly).
+	focus = {
+		id = GAL_naval_effort
+		icon = GFX_goal_generic_construct_naval_dockyard
+		prerequisite = { focus = GAL_the_invasion }
+		x = 7
+		y = 1
+		cost = 5
+		
+		completion_reward = {
+			add_national_unity = -0.05
+			359 = {
+				add_extra_state_shared_building_slots = 3
+				add_building_construction = {
+					type = dockyard
+					level = 3
+					instant_build = yes
+				}
+			}
+			custom_effect_tooltip = GAL_manufacturer_tooltip
+			show_ideas_tooltip = GAL_naval_manufacturer
+		}
+	}
+
+# Put some of the naval conversions to use.
+	focus = {
+		id = GAL_finish_conversion
+		icon = GFX_goal_generic_build_navy
+		prerequisite = { focus = GAL_orbital_construction_yards }
+		prerequisite = { focus = GAL_naval_effort }
+		x = 9
+		y = 2
+		cost = 5
+		
+		completion_reward = {
+			359 = {
+				add_building_construction = {
+					type = naval_base
+					level = 2
+					province = 11782
+					instant_build = yes
+				}
+			}
+			hidden_effect = {
+				set_technology = {
+					early_destroyer = 1
+					basic_destroyer = 1
+					early_light_cruiser = 1
+					basic_light_cruiser = 1
+				}
+			}
+			custom_effect_tooltip = GAL_early_destroyer_tt
+			custom_effect_tooltip = GAL_basic_destroyer_tt
+			custom_effect_tooltip = GAL_early_light_cruiser_tt
+			custom_effect_tooltip = GAL_basic_light_cruiser_tt
+				
+			custom_effect_tooltip = GAL_finish_conversion_tooltip
+			hidden_effect = {
+				create_navy_leader = {
+					name = "Aekmunn Hintler"
+					picture = "Portrait_GALtian_Generic.dds"
+					traits = { superior_tactician spotter }
+					skill = 4
+				}
+				load_oob = GAL_navy
+			}
+		}
+	}
+	
+# Begin construction of earth based ships.
+	focus = {
+		id = GAL_build_navy
+		icon = GFX_goal_generic_amphibious_assault
+		prerequisite = { focus = GAL_naval_effort }
+		x = 6
+		y = 2
+		cost = 10
+		
+		completion_reward = {
+			swap_ideas = {
+				remove_idea = masters_of_space_1
+				add_idea = masters_of_space_2
+			}
+			hidden_effect = {
+				set_technology = {
+					early_heavy_cruiser = 1
+					basic_heavy_cruiser = 1
+				}
+			}
+			custom_effect_tooltip = GAL_early_heavy_cruiser_tt
+			custom_effect_tooltip = GAL_basic_heavy_cruiser_tt
+			
+			if = {
+				limit = {
+					NOT = { has_tech = early_battleship }
+				}
+				custom_effect_tooltip = GAL_early_battleship_tt
+				hidden_effect = {
+					set_technology = { early_battleship = 1 }
+				}
+			}
+		}
+	}
+	
+# Focus on Battleship tech.
+	focus = {
+		id = GAL_battleship_focus
+		icon = GFX_goal_generic_navy_battleship
+		prerequisite = { focus = GAL_build_navy }
+		prerequisite = { focus = GAL_finish_conversion }
+		mutually_exclusive = { focus = GAL_battlecruiser_focus }
+		x = 8
+		y = 4
+		cost = 10
+		completion_reward = {
+			navy_experience = 25
+			if = {
+				limit = {
+					NOT = { has_tech = improved_heavy_cruiser }
+				}
+				custom_effect_tooltip = GAL_improved_heavy_cruiser_tt
+				hidden_effect = {
+					set_technology = { improved_heavy_cruiser = 1 }
+				}
+			}
+			
+			if = {
+				limit = {
+					NOT = { has_tech = basic_battleship }
+				}
+				custom_effect_tooltip = GAL_basic_battleship_tt
+				hidden_effect = {
+					set_technology = { basic_battleship = 1 }
+					set_country_flag = build_navy_battleship
+				}
+			}
+			if = {
+				limit = {
+					NOT = { has_country_flag = build_navy_battleship }
+					has_tech = basic_battleship
+				}
+				custom_effect_tooltip = GAL_improved_battleship_tt
+				hidden_effect = {
+					set_technology = { improved_battleship = 1 }
+					set_country_flag = build_navy_battleship
+				}
+			}
+		}
+	}
+	
+# Focus on Battle Cruiser tech.
+	focus = {
+		id = GAL_battlecruiser_focus
+		icon = GFX_goal_generic_navy_cruiser
+		prerequisite = { focus = GAL_build_navy }
+		prerequisite = { focus = GAL_finish_conversion }
+		mutually_exclusive = { focus = GAL_battleship_focus }
+		x = 6
+		y = 4
+		cost = 10
+		completion_reward = {
+			navy_experience = 25
+			if = {
+				limit = {
+					NOT = { has_tech = improved_heavy_cruiser }
+				}
+				custom_effect_tooltip = GAL_improved_heavy_cruiser_tt
+				hidden_effect = {
+					set_technology = { improved_heavy_cruiser = 1 }
+				}
+			}
+			
+			if = {
+				limit = {
+					NOT = { has_tech = early_battlecruiser }
+				}
+				custom_effect_tooltip = GAL_early_battlecruiser_tt
+				hidden_effect = {
+					set_technology = { early_battlecruiser = 1 }
+					set_country_flag = build_navy_battlecruiser
+				}
+			}
+			if = {
+				limit = {
+					NOT = { has_country_flag = build_navy_battlecruiser }
+					has_tech = early_battlecruiser
+				}
+				custom_effect_tooltip = GAL_basic_battlecruiser_tt
+				hidden_effect = {
+					set_technology = { basic_battlecruiser = 1 }
+					set_country_flag = build_navy_battlecruiser
+				}
+			}
+		}
+	}
+	
+	# Focus on Mothership tech.
+	focus = {
+		id = GAL_mothership_focus
+		icon = GFX_goal_generic_navy_doctrines_tactics
+		prerequisite = { focus = GAL_battleship_focus }
+		x = 8
+		y = 5
+		cost = 10
+		completion_reward = {
+			navy_experience = 50
+			if = {
+				limit = {
+					NOT = { has_tech = improved_battleship }
+				}
+				custom_effect_tooltip = GAL_improved_battleship_tt
+				hidden_effect = {
+					set_technology = { improved_battleship = 1 }
+					set_country_flag = build_navy_battleship
+				}
+			}
+			if = {
+				limit = {
+					NOT = { has_tech = heavy_battleship }
+				}
+				custom_effect_tooltip = GAL_heavy_battleship_tt
+				hidden_effect = {
+					set_technology = { heavy_battleship = 1 }
+					set_country_flag = build_navy_heavy_battleship
+				}
+			}
+			if = {
+				limit = {
+					NOT = { has_country_flag = build_navy_heavy_battleship }
+					has_tech = heavy_battleship
+				}
+				custom_effect_tooltip = GAL_heavy_battleship2_tt
+				hidden_effect = {
+					set_technology = { heavy_battleship2 = 1 }
+					set_country_flag = build_navy_heavy_battleship
+				}
+			}
+		}
+	}
+	
+# Focus on Carrier tech.
+	focus = {
+		id = GAL_carrier_focus
+		icon = GFX_goal_generic_navy_carrier
+		prerequisite = { focus = GAL_battlecruiser_focus }
+		x = 6
+		y = 5
+		cost = 10
+		completion_reward = {
+			navy_experience = 50
+			if = {
+				limit = {
+					NOT = { has_tech = early_carrier }
+				}
+				custom_effect_tooltip = GAL_early_carrier_tt
+				hidden_effect = {
+					set_technology = { early_carrier = 1 }
+					set_country_flag = build_navy_carrier
+				}
+			}
+			if = {
+				limit = {
+					NOT = { has_country_flag = build_navy_carrier }
+					has_tech = early_carrier
+				}
+				custom_effect_tooltip = GAL_basic_carrier_tt
+				hidden_effect = {
+					set_technology = { basic_carrier = 1 }
+					set_country_flag = build_navy_carrier
+				}
+			}
+			if = {
+				limit = {
+					NOT = { has_country_flag = build_navy_carrier }
+					has_tech = basic_carrier
+				}
+				custom_effect_tooltip = GAL_improved_carrier_tt
+				hidden_effect = {
+					set_technology = { improved_carrier = 1 }
+					set_country_flag = build_navy_carrier
+				}
+			}
+			custom_effect_tooltip = GAL_manufacturer_tooltip
+			show_ideas_tooltip = GAL_naval_aircraft_manufacturer
+		}
+	}
+	
+# All techs focuses have been gotten, we are the masters of the unvierse.
+	focus = {
+		id = GAL_masters_focus
+		icon = GFX_focus_rocketry
+		prerequisite = { focus = GAL_carrier_focus focus = GAL_mothership_focus }
+		prerequisite = { focus = GAL_tripods }
+		prerequisite = { focus = GAL_hypersonic }
+		x = 4
+		y = 6
+		cost = 10
+		completion_reward = {
+			remove_ideas = masters_of_space_2
+			add_ideas = masters_of_universe
+		}
+	}
+	
+# Reinforce the newly gained territory.
+	focus = {
+		id = GAL_empire_focus
+		icon = GFX_focus_GAL_mothership
+		available = {
+			controls_state = 358
+		}
+		
+		continue_if_invalid = yes
+		
+		x = 16
+		y = 0
+		cost = 5
+		completion_reward = {
+			add_national_unity = 0.1
+		}
+	}
+	
+# Support facism (Imperial GALtian Mandate/Invasion Force).
+	focus = {
+		id = GAL_support_facism
+		icon = GFX_goal_support_fascism
+		prerequisite = { focus = GAL_empire_focus }
+		mutually_exclusive = { focus = GAL_support_commy }
+		available = {
+			NOT = {
+				has_government = communism
+			}
+		}
+		x = 14
+		y = 1
+		cost = 10
+		completion_reward = {
+			add_political_power = 150
+			add_popularity = { 
+				ideology = fascism
+				popularity = 0.2 
+			}
+		}
+	}
+	
+# Support communism (GALtian Defence Force/Commonwealth).
+	focus = {
+		id = GAL_support_commy
+		icon = GFX_goal_support_communism
+		prerequisite = { focus = GAL_empire_focus }
+		mutually_exclusive = { focus = GAL_support_facism }
+		x = 16
+		y = 1
+		cost = 10
+		completion_reward = {
+			add_political_power = 150
+			custom_effect_tooltip = available_political_advisor
+			show_ideas_tooltip = GAL_communist_revolutionary
+		}
+	}
+	
+# Self explanatory...
+	focus = {
+		id = GAL_victoryinUSA
+		#icon = GFX_goal_generic_propaganda
+		icon = GFX_focus_generic_strike_at_democracy3
+		prerequisite = { focus = GAL_support_facism focus = GAL_support_commy }
+		available = {
+			OR = {
+				USA = { is_subject = yes }
+				USA = { exists = no }
+				USA = { has_capitulated = yes }
+			}
+		}
+		x = 15
+		y = 2
+		cost = 1
+		completion_reward = {
+			hidden_effect = {
+				set_major = yes
+				if {
+					limit = {
+						NOT = { has_country_flag = GALtian_reinforcements_NY }
+					}
+					remove_state_claim = 358
+					add_state_core = 358
+				}
+				remove_state_claim = 361
+				add_state_core = 361
+				remove_state_claim = 357
+				add_state_core = 357
+				remove_state_claim = 360
+				add_state_core = 360
+			}
+			transfer_state = 357
+			transfer_state = 358
+			transfer_state = 360
+			transfer_state = 361
+			set_capital = 361
+		}
+	}
+	
+# Mmmm...yummy humans (cannon in almost all War of the worlds universes).
+	focus = {
+		id = GAL_craving
+		icon = GFX_goal_generic_CAS
+		prerequisite = { focus = GAL_support_facism }
+		prerequisite = { focus = GAL_victoryinUSA }
+		x = 13
+		y = 3
+		cost = 5
+		completion_reward = {
+			custom_effect_tooltip = GAL_annex_countries
+			hidden_effect = {
+				every_country = {
+					limit = { is_subject_of = GAL }
+					GAL = { annex_country = { target = PREV } }
+				}
+			}
+			every_owned_state = {
+				add_manpower = -250000
+			}
+			remove_ideas = interplanet_invaders
+			add_ideas = superior_race_1
+		}
+	}
+	
+# Use humans as mind slaves to forward invasion effort.
+	focus = {
+		id = GAL_telepathy
+		icon = GFX_goal_generic_improve_relations
+		prerequisite = { focus = GAL_support_commy }
+		prerequisite = { focus = GAL_victoryinUSA }
+		x = 17
+		y = 3
+		cost = 5
+		completion_reward = {
+			custom_effect_tooltip = GAL_mind_slaves_tooltip
+			show_ideas_tooltip = GAL_ray_ferrier
+			show_ideas_tooltip = GAL_dewitt_ramsey
+			show_ideas_tooltip = GAL_george_GALshall
+			show_ideas_tooltip = GAL_carl_spaatz
+			show_ideas_tooltip = GAL_ernest_king
+			show_ideas_tooltip = GAL_joseph_stilwell
+			show_ideas_tooltip = GAL_jimmy_doolittle
+			show_ideas_tooltip = GAL_frank_fletcher
+		}
+	}
+	
+# From almost every single War of the worlds adaptaion.
+	focus = {
+		id = GAL_red_weed
+		icon = GFX_focus_GAL_red_weed
+		#icon = GFX_goal_generic_secret_weapon
+		prerequisite = { focus = GAL_craving }
+		x = 13
+		y = 4
+		cost = 10
+		completion_reward = {
+			if = {
+				limit = { has_completed_focus = GAL_naval_effort }
+				add_national_unity = 0.1
+			}
+			if = {
+				limit = {
+					NOT = { has_completed_focus = GAL_naval_effort }
+				}
+				add_national_unity = 0.05
+			}
+			every_country = {
+				limit = {
+					NOT = { tag = GAL }
+				}
+				add_ideas = red_weed
+			}
+		}
+	}
+	
+# We will improve their genome.
+	focus = {
+		id = GAL_genetics
+		icon = GFX_goal_generic_national_unity
+		prerequisite = { focus = GAL_telepathy }
+		x = 17
+		y = 4
+		cost = 10
+		completion_reward = {
+			if = {
+				limit = { has_completed_focus = GAL_naval_effort }
+				add_national_unity = 0.1
+			}
+			if = {
+				limit = {
+					NOT = { has_completed_focus = GAL_naval_effort }
+				}
+				add_national_unity = 0.05
+			}
+			add_ideas = genetic_pacification
+		}
+	}
+	
+# We create a puppet state.
+	focus = {
+		id = GAL_colonies
+		icon = GFX_goal_generic_major_alliance
+		prerequisite = { focus = GAL_telepathy }
+		available = { has_government = communism }
+		x = 15
+		y = 4
+		cost = 10
+		completion_reward = {
+			if = {
+				limit = { has_completed_focus = GAL_victoryinUSA }
+				every_state = {
+					limit = {
+						is_owned_by = GAL
+						is_controlled_by = GAL
+						NOT = { is_core_of = GAL }
+					}
+					custom_effect_tooltip = GAL_release_colonies_tooltip
+					hidden_effect = {
+						LUX = {
+							#To ensure the Colonies don't get GALtian division templates
+							transfer_state = PREV
+						}
+						MTC = { transfer_state = PREV }
+					}
+				}
+			}
+			set_autonomy = {
+				target = MTC
+				autonomous_state =  autonomy_colony
+			}
+			hidden_effect = {
+				MTC = {
+					load_oob = MTC_alien_puppet
+					set_political_party = { ideology = democratic popularity = 5 }
+					set_political_party = { ideology = fascism popularity = 15 }
+					set_political_party = { ideology = communism popularity = 80 }
+					set_political_party = { ideology = neutrality popularity = 0 }
+					remove_ideas = last_hope
+					add_ideas = {
+						GALtian_colony
+						suppressed_population
+					}
+				}
+			}
+			if = {
+				limit = { is_ai = no }
+				country_event = alien.28
+			}
+		}
+	}
+	
+# Self explanatory...
+	focus = {
+		id = GAL_attack_allies
+		icon = GFX_goal_generic_attack_allies
+		prerequisite = { focus = GAL_empire_focus }
+		available = {
+			controls_state = 361
+			ENG = { controls_state = 127 }
+			OR = {
+				NOT = { has_war_with = SOV }
+				SOV = { has_capitulated = yes }
+			}
+		}
+		bypass = {
+			OR = {
+				has_war_with = ENG
+				ENG = { exists = no }
+			}
+		}
+		x = 22
+		y = 1
+		cost = 5
+		completion_reward = {
+			if = {
+				limit = {
+					USA = { exists = yes }
+					NOT = { has_completed_focus = GAL_victoryinUSA }
+				}
+				custom_effect_tooltip = GAL_ENG_may_join_USA
+			}
+			ENG = { country_event = misc_alien.1 }
+		}
+	}
+	
+# Self explanatory...
+	focus = {
+		id = GAL_attack_comintern
+		icon = GFX_goal_generic_war_with_comintern
+		prerequisite = { focus = GAL_empire_focus }
+		available = {
+			controls_state = 361
+			SOV = { controls_state = 192 }
+			NOT = { has_government = communism }
+			OR = {
+				NOT = { has_war_with = ENG }
+				ENG = { has_capitulated = yes }
+			}
+		}
+		bypass = {
+			OR = {
+				has_war_with = SOV
+				SOV = { exists = no }
+			}
+		}
+		x = 20
+		y = 1
+		cost = 5
+		completion_reward = {
+			if = {
+				limit = {
+					USA = { exists = yes }
+					NOT = { has_completed_focus = GAL_victoryinUSA }
+				}
+				custom_effect_tooltip = GAL_SOV_may_join_USA
+			}
+			SOV = { country_event = misc_alien.2 }
+		}
+	}
+	
+# Protect northern Canadian border (if there is one) so can focus on the USA.
+	focus = {
+		id = GAL_allies_canada
+		icon = GFX_goal_generic_construct_military
+		prerequisite = { focus = GAL_attack_allies }
+		available = {
+			CAN = { has_war_with = GAL }
+		}
+		bypass = {
+			OR = {
+				CAN = {
+					has_war = no
+					is_in_faction = no
+				}
+				CAN = { exists = no }
+			}
+		}
+		x = 22
+		y = 2
+		cost = 5
+		completion_reward = {
+			359 = {
+				custom_effect_tooltip = GAL_new_jersey_forts
+				hidden_effect = {
+					add_building_construction = {
+						type = bunker
+						level = 2
+						province = 6882
+						instant_build = yes
+					}
+					add_building_construction = {
+						type = bunker
+						level = 1
+						province = 3693
+						instant_build = yes
+					}
+					add_building_construction = {
+						type = bunker
+						level = 1
+						province = 3863
+						instant_build = yes
+					}
+					add_building_construction = {
+						type = bunker
+						level = 1
+						province = 11782
+						instant_build = yes
+					}
+					add_building_construction = {
+						type = bunker
+						level = 1
+						province = 11900
+						instant_build = yes
+					}
+				}
+			}
+			custom_effect_tooltip = generic_reinforcement_tooltip
+			hidden_effect = { load_oob = GAL_reinforcement_can }
+		}
+	}
+	
+# The Russians are stronger than originally thought...
+	focus = {
+		id = GAL_comintern_reinforcement
+		icon = GFX_goal_anti_comintern_pact
+		prerequisite = { focus = GAL_attack_comintern }
+		available = {
+			SOV = { has_war_with = GAL }
+			controls_state = 192
+		}
+		bypass = {
+			OR = {
+				SOV = { has_capitulated = yes }
+				SOV = { exists = no }
+			}
+		}
+		x = 20
+		y = 2
+		cost = 5
+		completion_reward = {
+			custom_effect_tooltip = GAL_sov_reinforcment_tooltip
+			hidden_effect = { load_oob = GAL_sov_reinforcement }
+		}
+	}
+	
+# Self explanatory...
+	focus = {
+		id = GAL_attack_axis
+		icon = GFX_goal_generic_major_war
+		prerequisite = { focus = GAL_comintern_reinforcement focus = GAL_allies_canada }
+		available = {
+			GER = { controls_state = 62 }
+		}
+		bypass = {
+			OR = {
+				has_war_with = GER
+				GER = { exists = no }
+			}
+		}
+		
+		continue_if_invalid = yes
+		
+		x = 21
+		y = 4
+		cost = 5
+		completion_reward = {
+			if = {
+				limit = {
+					USA = { exists = yes }
+					NOT = { has_completed_focus = GAL_victoryinUSA }
+				}
+				custom_effect_tooltip = GAL_GER_may_join_USA
+			}
+			GER = { country_event = misc_alien.7 }
+		}
+	}
+	
+# Deal with the land of the rising sun...
+	focus = {
+		id = GAL_axis_japan
+		icon = GFX_goal_generic_occupy_states_coastal
+		prerequisite = { focus = GAL_attack_axis }
+		available = {
+			JAP = {controls_state = 528 }
+			JAP = { is_in_faction = yes }
+			has_war_with = JAP
+		}
+		bypass = {
+			OR = {
+				JAP = { has_capitulated = yes }
+				JAP = { exists = no }
+			}
+			
+		}
+		x = 22
+		y = 5
+		cost = 5
+		completion_reward = {
+			JAP = { country_event = misc_alien.11 }
+		}
+	}
+	
+# Self explanatory...
+	focus = {
+		id = GAL_earth_cleanup
+		icon = GFX_goal_generic_occupy_states_ongoing_war
+		prerequisite = { focus = GAL_attack_axis }
+		prerequisite = { focus = GAL_victoryinUSA }
+		available = {
+			has_war = no
+			GER = { is_in_faction = no }
+			OR = {
+				ENG = { is_in_faction = no }
+				SOV = { is_in_faction = no }
+			}
+		}
+		bypass = {
+			all_country = {
+				is_in_faction = no
+			}
+			OR = {
+				MTC = { is_subject_of = GAL }
+				MTC = { exists = no }
+			}
+		}
+		x = 19
+		y = 5
+		cost = 1
+		completion_reward = {
+			if = {
+				limit = { has_completed_focus = GAL_support_facism }
+				custom_effect_tooltip = humanity_might_unite_tooltip
+				hidden_effect = {
+					if = {
+						limit = {
+							is_historical_focus_on = yes
+							is_ai = no
+						}
+						random_list = {
+							90 = {
+								set_global_flag = humanity_unites
+								LUX = {
+									#To ensure the United Federation don't get GALtian division templates
+									transfer_state = 629
+								}
+								MTC = { transfer_state = 629 }
+								MTC = {
+									add_opinion_modifier = { target = ROOT modifier = is_GALtian_invader }
+									country_event = colonies.2
+								}
+							} 
+							10 = {
+								#Humanity doesn't unite
+							}
+						}
+					}
+					if = {
+						limit = {
+							is_historical_focus_on = yes
+							is_ai = yes
+						}
+						random_list = {
+							25 = {
+								set_global_flag = humanity_unites
+								LUX = {
+									#To ensure the United Federation don't get GALtian division templates
+									transfer_state = 629
+								}
+								MTC = { transfer_state = 629 }
+								MTC = {
+									add_opinion_modifier = { target = ROOT modifier = is_GALtian_invader }
+									country_event = colonies.2
+								}
+							} 
+							75 = {
+								#Humanity doesn't unite
+							}
+						}
+					}
+					if = {
+						limit = { is_historical_focus_on = no }
+						random_list = {
+							50 = {
+								set_global_flag = humanity_unites
+								LUX = {
+									#To ensure the United Federation don't get GALtian division templates
+									transfer_state = 629
+								}
+								MTC = { transfer_state = 629 }
+								MTC = {
+									add_opinion_modifier = { target = ROOT modifier = is_GALtian_invader }
+									country_event = colonies.2
+								}
+							} 
+							50 = {
+								#Humanity doesn't unite
+							}
+						}
+					}
+				}
+			}
+			custom_effect_tooltip = GAL_global_faction_war
+			every_country = {
+				limit = {
+					NOT = { tag = GAL }
+					NOT = { tag = MTC }
+					is_in_faction = yes
+				}
+				country_event = misc_alien.8
+			}
+		}
+	}
+	
+# We have won, man has fallen; Earth has fallen to the GALtians...
+	focus = {
+		id = GAL_GALtian_victory
+		icon = GFX_goal_anschluss
+		prerequisite = { focus = GAL_earth_cleanup }
+		prerequisite = { focus = GAL_red_weed focus = GAL_colonies }
+		available = {
+			has_war = no
+			all_country = {
+				is_in_faction = no
+			}
+			OR = {
+				MTC = { is_subject_of = GAL }
+				MTC = { exists = no }
+			}
+		}
+		bypass = {
+			OR = {
+				all_country = {
+					OR = {
+						tag = GAL
+						AND = {
+							tag = MTC
+							is_subject_of = GAL
+						}
+						exists = no
+					}
+				}
+				AND = {
+					has_war_with = MTC
+					any_war_score > 90
+				}
+			}
+		}
+		x = 16
+		y = 6
+		cost = 1
+		completion_reward = {
+			if = {
+				limit = { has_completed_focus = GAL_support_facism }
+				custom_effect_tooltip = GAL_annex_countries
+				every_country = {
+					limit = {
+						NOT = { tag = GAL }
+						is_ai = yes
+					}
+					country_event = misc_alien.9
+				}
+			}
+			if = {
+				limit = { has_completed_focus = GAL_support_commy }
+				custom_effect_tooltip = GAL_puppet_countries
+				every_country = {
+					limit = {
+						NOT = { tag = GAL }
+						NOT = { tag = MTC }
+						NOT = { is_subject_of = GAL }
+						is_ai = yes
+					}
+					country_event = misc_alien.13
+				}
+				remove_ideas = interplanet_invaders
+				add_ideas = superior_race_2
+			}
+		}
+	}
+	
+# Establish centralized command sector so less reliance on homeworld.
+	focus = {
+		id = GAL_establish_invasion_command
+		icon = GFX_goal_generic_more_territorial_claims
+		prerequisite = { focus = GAL_orbital_construction_yards }
+		prerequisite = { focus = GAL_victoryinUSA }
+		x = 11
+		y = 3
+		cost = 10
+		
+		completion_reward = {
+			remove_ideas = distant_capital
+			add_ideas = invasion_command
+		}
+	}
+	
+# Self explanatory...
+	focus = {
+		id = GAL_extra_tech_slot
+		icon = GFX_focus_research
+		prerequisite = { focus = GAL_establish_invasion_command }
+		x = 10
+		y = 4
+		cost = 10
+		completion_reward = {
+			add_research_slot = 1
+		}
+	}
+
+# The humans are taking to long to kill!
+	focus = {
+		id = GAL_destructive_weapons
+		icon = GFX_focus_wonderweapons
+		prerequisite = { focus = GAL_establish_invasion_command }
+		prerequisite = { focus = GAL_red_weed }
+		available = {
+			date > 1941.10.30
+		}
+		
+		continue_if_invalid = yes
+		
+		x = 12
+		y = 5
+		cost = 10
+		completion_reward = {
+			add_tech_bonus = {
+				name = nuclear_bonus
+				bonus = 0.75
+				ahead_reduction = 1.5
+				uses = 2
+				category = nuclear
+			}
+		}
+	}
+	
+# Can't import both due to other priotities.
+	focus = {
+		id = GAL_resource_import
+		icon = GFX_goal_generic_production
+		mutually_exclusive = { focus = GAL_industrial_import }
+		x = 10
+		y = 0
+		cost = 10
+		
+		completion_reward = {
+			custom_effect_tooltip = GAL_import_tooltip
+			hidden_effect = {
+				359 = {
+					add_building_construction = {
+						type = infrastructure
+						level = 10
+						instant_build = yes
+					}
+				}
+			}
+			add_resource = {
+				type = steel
+				amount = 20
+				state = 359
+			}
+			add_resource = {
+				type = oil
+				amount = 10
+				state = 359
+			}
+			add_resource = {
+				type = rubber
+				amount = 4
+				state = 359
+			}
+		}
+	}
+	
+# Can't import both due to other priotities.
+	focus = {
+		id = GAL_industrial_import
+		icon = GFX_goal_generic_construct_civ_factory
+		mutually_exclusive = { focus = GAL_resource_import }
+		x = 12
+		y = 0
+		cost = 10
+
+		completion_reward = {
+			custom_effect_tooltip = GAL_import_tooltip
+			hidden_effect = {
+				359 = {
+					add_building_construction = {
+						type = infrastructure
+						level = 10
+						instant_build = yes
+					}
+				}
+			}
+			359 = {
+				add_extra_state_shared_building_slots = 4
+				add_building_construction = {
+					type = arms_factory
+					level = 4
+					instant_build = yes
+				}
+			}
+		}
+	}
+	
+# Build orbital construction space stations around earth.
+	focus = {
+		id = GAL_orbital_construction_yards
+		icon = GFX_focus_GAL_mothership_industry
+		prerequisite = { focus = GAL_industrial_import focus = GAL_resource_import }
+		x = 11
+		y = 1
+		cost = 10
+		
+		completion_reward = {
+			if = {
+				limit = {
+					NOT = { has_country_flag = the_cure }
+				}
+				custom_effect_tooltip = GAL_prevents_disease
+				set_country_flag = the_cure
+			}
+			if = {
+				limit = {
+					NOT = { has_country_flag = the_cure }
+					has_country_flag = the_disease
+				}
+				add_national_unity = 0.20
+				add_political_power = 50
+			}
+			add_ideas = orbital_factory
+			add_tech_bonus = {
+				name = industrial_bonus
+				bonus = 0.75
+				uses = 2
+				category = industry
+			}
+
+		}
+	}
+# Deal with XCOM
+	focus = {
+		id = GAL_xcom_response
+		icon = GFX_focus_xcom
+		prerequisite = { focus = GAL_empire_focus }
+		available = {
+			OR = {
+				MTC = {
+					custom_trigger_tooltip = {
+						tooltip = has_xcom_tech.tt
+						has_tech = xcom_tech
+					}
+				}
+				AND = {
+					USA = { exists = yes }
+					USA = { has_capitulated = no }
+					USA = {
+					custom_trigger_tooltip = {
+						tooltip = has_xcom_tech.tt
+						has_tech = xcom_tech
+					}
+				}
+				}
+			}
+		}
+		x = 18
+		y = 2
+		cost = 10
+		completion_reward = {
+			country_event = alien.25
+		}
+	}
+}

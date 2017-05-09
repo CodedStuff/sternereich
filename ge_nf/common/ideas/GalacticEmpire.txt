@@ -1,0 +1,289 @@
+ideas = {
+	political_advisor = {
+
+		GAL_washington_luis_pereira = {
+
+			picture = generic_political_advisor_south_america_1
+			
+			allowed = {
+				original_tag = GAL
+			}
+			
+			traits = { backroom_backstabber }
+		}
+
+		GAL_osvaldo_aranha = {
+
+			picture = generic_political_advisor_south_america_2
+				
+			allowed = {
+				original_tag = GAL
+			}
+			
+			traits = { compassionate_gentleman }
+		}
+
+		GAL_afranio_de_mello_franco = {
+
+			picture = generic_political_advisor_south_america_3
+			
+			allowed = {
+				original_tag = GAL
+			}
+			
+			traits = { popular_figurehead }
+		}
+	}
+
+	theorist = {
+
+		GAL_newton_cavalcanti = {
+					
+			picture = generic_army_south_america_1
+
+			allowed = {
+				original_tag = GAL
+			}
+			
+			research_bonus = {
+				land_doctrine = 0.07
+			}
+			
+			traits = { military_theorist }
+		}
+
+		GAL_eduardo_gomes = {
+					
+			picture = generic_political_advisor_south_america_1
+				
+			allowed = {
+				original_tag = GAL
+			}
+			
+			research_bonus = {
+				air_doctrine = 0.07
+			}
+			
+			traits = { air_warfare_theorist }
+		}
+	}
+
+	high_command = {
+
+		GAL_epaminondas_dos_santos = {
+
+			picture = generic_air_south_america_1
+			
+			allowed = {
+				original_tag = GAL
+			}
+			
+			traits = { air_air_combat_training_2 }
+			
+			ai_will_do = {
+				factor = 1
+			}
+		}
+		
+		GAL_LiberalPolicy = {
+			
+		
+			allowed = {
+				always = no
+			}
+
+			allowed_civil_war = {
+				has_government = democratic
+			}
+		
+			removal_cost = -1
+
+			picture = generic_pp_unity_bonus
+
+			modifier = {
+				democratic_drift = 0.2
+			}
+		}
+		
+		GAL_LiberalPolicy2 = {
+			
+		
+			allowed = {
+				always = no
+			}
+
+			allowed_civil_war = {
+				has_government = democratic
+			}
+		
+			removal_cost = -1
+
+			picture = generic_pp_unity_bonus
+
+			modifier = {
+				democratic_drift = 0.4
+			}
+		}
+
+		GAL_agliberto_vieira = {
+
+			picture = generic_navy_south_america_2
+			
+			allowed = {
+				original_tag = GAL
+			}
+			
+			traits = { navy_naval_air_defense_2 }
+			
+			ai_will_do = {
+				factor = 1
+			}
+		}
+
+		GAL_artur_da_costa_e_silva = {
+
+			picture = generic_army_south_america_3
+			
+			allowed = {
+				original_tag = GAL
+			}
+			
+			traits = { army_infantry_2 }
+			
+			ai_will_do = {
+				factor = 1
+			}
+		}
+
+		GAL_moreira_lima = {
+
+			picture = generic_air_south_america_2
+			
+			allowed = {
+				original_tag = GAL
+			}
+			
+			traits = { air_air_superiority_2 }
+			
+			ai_will_do = {
+				factor = 1
+			}
+		}
+	}
+	# MILITARY
+	army_chief = {
+
+		GAL_joao_neves_da_fontoura = {
+			
+			picture = generic_army_south_america_1
+			
+			allowed = {
+				original_tag = GAL
+			}
+			
+			traits = { army_chief_defensive_2 }
+			
+			ai_will_do = {
+				factor = 1
+			}
+		}
+
+		GAL_nero_fiuza_de_castro = {
+			
+			picture = generic_army_south_america_3
+			
+			allowed = {
+				original_tag = GAL
+			}
+			
+			traits = { army_chief_drill_2 }
+			
+			ai_will_do = {
+				factor = 1
+			}
+		}
+	}
+
+	air_chief = {
+		
+
+		GAL_salgado_filho = {
+			
+			picture = generic_air_south_america_1
+			
+			allowed = {
+				original_tag = GAL
+			}
+			
+			traits = { air_chief_ground_support_2 }
+			
+			ai_will_do = {
+				factor = 1
+			}
+		}
+
+		GAL_ismael_motta_paes = {
+			
+			picture = generic_air_south_america_2
+			
+			allowed = {
+				original_tag = GAL
+			}
+			
+			traits = { air_chief_night_operations_2 }
+			
+			ai_will_do = {
+				factor = 1
+			}
+		}
+
+	}
+
+	navy_chief = {
+
+		GAL_aristides_guilhem = {
+			
+			picture = generic_navy_south_america_2
+			
+			allowed = {
+				original_tag = GAL
+			}
+			
+			traits = { navy_chief_naval_aviation_2 }
+			
+			ai_will_do = {
+				factor = 1
+			}
+		}
+
+		GAL_jorge_martins = {
+			
+			picture = generic_navy_south_america_1
+			
+			allowed = {
+				original_tag = GAL
+			}
+			
+			traits = { navy_chief_commerce_raiding_2 }
+			
+			ai_will_do = {
+				factor = 1
+			}
+		}
+
+		GAL_floriano_peixoto = {
+			
+			picture = generic_navy_south_america_3
+			
+			allowed = {
+				original_tag = GAL
+			}
+			
+			traits = { navy_chief_decisive_battle_2 }
+			
+			ai_will_do = {
+				factor = 1
+			}
+		}
+	}
+}

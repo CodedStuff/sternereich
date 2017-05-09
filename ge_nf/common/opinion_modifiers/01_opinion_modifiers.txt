@@ -1,0 +1,14 @@
+opinion_modifiers = {
+
+	GAL_itspolicy = 
+	{		
+		value = 50
+	}
+
+	GAL_otherpolicy =
+
+	{
+		value = -30
+	}
+
+}

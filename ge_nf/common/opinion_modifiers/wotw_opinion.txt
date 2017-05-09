@@ -1,0 +1,24 @@
+opinion_modifiers = {
+	is_martian_invader = {
+		value = -200
+	}
+
+	refuse_american_relief = {
+		value = -50
+		months = 24
+		decay = 1
+	}
+	refuse_american_faction = {
+		value = -25
+		months = 24
+		decay = 1
+	}
+	martian_tech_refused = {
+		value = -25
+		months = 36
+		decay = 1
+	}
+	martian_tech_shared = {
+		value = 50
+	}
+}
